@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="http://magt.sidev.info/rent19/shell/feed.rss" rel="self" type="application/rss+xml" />
+        <title>Salesigniter</title>
+        <link>http://www.rentalbookingsoftware.com//</link>
+        <description>Salesigniter</description>
+        <copyright>Copyright (c) 2014 Salesigniter</copyright>
+        <webMaster>kjavitz@itwebexperts.com (Kevin Javitz)</webMaster>
+        <language>en</language>
+        <lastBuildDate>Mon, 20 Oct 2014 00:00:00 -0500</lastBuildDate>
+        <ttl>3000</ttl>
+        <item>
+            <title>Please update database if your version is prior 1.3 </title>
+            <link>http://www.magentocommerce.com/blog/comments/magento-version-131-now-available/</link>
+            <severity>3</severity>
+            <description><![CDATA[Update system for rental extension is built.]]></description>
+            <pubDate>Mon, 20 Oct 2014 00:00:00 -0500</pubDate>
+        </item>
+    </channel>
+</rss>
