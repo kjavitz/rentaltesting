@@ -10,6 +10,19 @@ Mage::init('admin');
 
 
 /**
+ * Insert special price
+ */
+
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's4';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/25/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/26/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+
+
+/**
  * Add color attribute to attribute set default
  */
 
@@ -132,7 +145,7 @@ $data = array(
         'is_reservation' => 'Reservation',
         'color' => 'red',
         /*Reservation variable*/
-        'res_prices' => '1=Hour=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=8=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'res_prices' => '1=Day=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=5=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1=1',
         'payperrentals_quantity' => 3,
         'global_min_period' => 'Yes',
         'global_max_period' => 'Yes',
@@ -164,7 +177,7 @@ $data = array(
         'color' => 'green',
 
         /*Reservation variable*/
-        'res_prices' => '1=Hour=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=8=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'res_prices' => '1=Day=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Week=5=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Month=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Week=15=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1=1',
         'payperrentals_quantity' => 3,
         'global_min_period' => 'Yes',
         'global_max_period' => 'Yes',
@@ -229,7 +242,7 @@ $data = array(
         'tax_class_id' => 2,
         'is_reservation' => 'Reservation',
         /*Reservation variable*/
-        'res_prices' => '1=Hour=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=8=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'res_prices' => '1=Day=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=5=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1=1',
         'payperrentals_quantity' => 3,
         'global_min_period' => 'Yes',
         'global_max_period' => 'Yes',
@@ -387,7 +400,7 @@ $data = array(
         'price_type' => 1,
         'price' => 100,
         'is_reservation' => 'Reservation',
-        'res_prices' => '1=Hour=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=8=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'res_prices' => '1=Day=1=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;1=Day=5=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1=1;1=Week=15=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
         'bundle_pricingtype' => 'For all',
         '_bundle_option_title' => array('Option 1', 'Option 1'),
         '_bundle_option_type' => 'checkbox',
