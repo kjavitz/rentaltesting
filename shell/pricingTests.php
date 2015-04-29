@@ -144,7 +144,7 @@ $data = array(
 );
 try {
     $import
-        ->setUseNestedArrays(true)
+        //->setUseNestedArrays(true)
         ->processProductImport($data);
 } catch (Exception $e) {
     print_r($import->getErrorMessages());
