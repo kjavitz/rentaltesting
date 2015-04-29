@@ -1,5 +1,3 @@
-app/code/community/AvS/FastSimpleImport app/code/community/AvS/FastSimpleImport
-app/etc/modules/AvS_FastSimpleImport.xml app/etc/modules/AvS_FastSimpleImport.xml
 app/code/community/Aoe/Scheduler/								app/code/community/Aoe/Scheduler/
 app/etc/modules/Aoe_Scheduler.xml								app/etc/modules/Aoe_Scheduler.xml
 shell/*															shell/
@@ -14,3 +12,5 @@ app/code/local/Aschroder/SMTPPro/                       app/code/local/Aschroder
 app/design/adminhtml/base/default/template/smtppro/     app/design/adminhtml/default/default/template/smtppro/
 app/locale/en_US/Aschroder_SMTPPro.csv                  app/locale/en_US/Aschroder_SMTPPro.csv
 README.md README.md
+app/code/community/AvS/FastSimpleImport     app/code/community/AvS/FastSimpleImport
+app/etc/modules/AvS_FastSimpleImport.xml    app/etc/modules/AvS_FastSimpleImport.xml
