@@ -1,3 +1,5 @@
+app/code/community/AvS/FastSimpleImport app/code/community/AvS/FastSimpleImport
+app/etc/modules/AvS_FastSimpleImport.xml app/etc/modules/AvS_FastSimpleImport.xml
 app/code/community/Aoe/Scheduler/								app/code/community/Aoe/Scheduler/
 app/etc/modules/Aoe_Scheduler.xml								app/etc/modules/Aoe_Scheduler.xml
 shell/*															shell/
