@@ -160,64 +160,22 @@ $dataRelation = array();
 $dataRelation[] = array(
     '_root' => 'Default Category',
     '_category' => 'Test3',
-    '_sku' => 'c1',
+    '_sku' => 'product1',
     'position' => 1
 
 );
 $dataRelation[] = array(
     '_root' => 'Default Category',
     '_category' => 'Test3',
-    '_sku' => 'c2',
+    '_sku' => 'product2',
     'position' => 2
 );
 $dataRelation[] = array(
     '_root' => 'Default Category',
     '_category' => 'Test3',
-    '_sku' => 'simple1',
+    '_sku' => 'product3',
     'position' => 3
 );
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 'simple2',
-    'position' => 4
-);
-
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 'configurable1',
-    'position' => 5
-);
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 'bundle113',
-    'position' => 6
-
-);
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 's1',
-    'position' => 7
-);
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 's2',
-    'position' => 8
-
-);
-
-$dataRelation[] = array(
-    '_root' => 'Default Category',
-    '_category' => 'Test3',
-    '_sku' => 'bundle11',
-    'position' => 8
-
-);
-
 try {
     $import->processCategoryProductImport($dataRelation);
 } catch (Exception $e) {
