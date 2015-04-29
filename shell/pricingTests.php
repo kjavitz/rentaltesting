@@ -1,5 +1,5 @@
 <?php
-
+ini_set('display_errors', 1);
 $workingDir = dirname(__FILE__);
 if(strpos($workingDir,'.modman') > 0) {
     require_once $workingDir . '/../../../app/Mage.php';
