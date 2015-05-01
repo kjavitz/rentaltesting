@@ -38,39 +38,68 @@ foreach ($specials as $special) {
 
     $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
     $data['description'] = 's4';
-    $data['disabled_type'] = 'Monthly';
-    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/25/2015 00:00:00');
-    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/26/2015 00:00:00');
+    $data['disabled_type'] = 'Yearly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/04/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/05/2015 00:00:00');
     $respricedate->setData($data);
     $respricedate->save();
-
-
-/**
- * Add color attribute to attribute set default
- */
-
-$fieldList = array('color');
-$applyTo = array('simple', 'reservation');
-$setupModel =  Mage::getResourceModel('catalog/setup', 'core_setup');
-
-foreach ($fieldList as $_field) {
-    $setupModel->updateAttribute(Mage_Catalog_Model_Product::ENTITY, $_field, 'apply_to', implode(',', $applyTo));
-}
-
-$attribute_set_name = 'Default';
-$group_name = 'General';
-$attribute_code = 'color';
-
-$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
-
-//-------------- add attribute to set and group
-$attribute_set_id=$setup->getAttributeSetId('catalog_product', $attribute_set_name);
-$attribute_group_id=$setup->getAttributeGroupId('catalog_product', $attribute_set_id, $group_name);
-$attribute_id=$setup->getAttributeId('catalog_product', $attribute_code);
-
-$setup->addAttributeToSet($entityTypeId='catalog_product',$attribute_set_id, $attribute_group_id, $attribute_id);
-
-
+    $s4 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's5';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/01/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/02/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s5 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's6';
+    $data['disabled_type'] = 'Weekly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/09/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/10/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s6 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's7';
+    $data['disabled_type'] = 'Weekly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/08/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/11/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s7 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's8';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/05/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/08/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s8 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's9';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/09/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/12/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s9 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's10';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/13/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/13/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s10 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's11';
+    $data['disabled_type'] = 'Monthly';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/16/2015 00:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/22/2015 00:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s11 = $respricedate->getId();
 /** @var $import AvS_FastSimpleImport_Model_Import */
 $import = Mage::getModel('fastsimpleimport/import');
 /**
@@ -96,6 +125,199 @@ try {
     print_r($import->getErrorMessages());
 }
 
+/**
+ * Create Res Products
+ */
+
+$data = array(
+    array(
+        'sku' => 'product4',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 4',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Week=20=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=5=Day=-1;1=Week=100=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=20=Day=-1='.$s4,
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product5',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 5',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Day=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=5=Day=-1;1=Day=50=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=25=Day=-1='.$s6,
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product6',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 6',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Day=20=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s5.';1=Day=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product7',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 7',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Day=20=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s5,
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product8',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 8',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Day=95=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1;3=Day=95=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s7.';6=Day=285=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1',
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product9',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 9',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '5=Day=30=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=5=Day=-1;3=Day=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s8.';2=Day=15=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=7=Day=-1='.$s9.';1=Day=20=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s10.';3=Day=25=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s11,
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    )
+);
+try {
+    $import
+        //->setUseNestedArrays(true)
+        ->processProductImport($data);
+} catch (Exception $e) {
+    print_r($import->getErrorMessages());
+}
 
 
 /**
