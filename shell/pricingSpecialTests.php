@@ -100,6 +100,15 @@ foreach ($specials as $special) {
     $respricedate->setData($data);
     $respricedate->save();
     $s11 = $respricedate->getId();
+    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
+    $data['description'] = 's12';
+    $data['disabled_type'] = 'Daily';
+    $data['repeat_days'] = '1,2,3,4,5,6,0';
+    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/19/2015 15:00:00');
+    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('05/19/2015 17:00:00');
+    $respricedate->setData($data);
+    $respricedate->save();
+    $s12 = $respricedate->getId();
 /** @var $import AvS_FastSimpleImport_Model_Import */
 $import = Mage::getModel('fastsimpleimport/import');
 /**
@@ -298,6 +307,36 @@ $data = array(
         'is_reservation' => 'Reservation',
         /*Reservation variable*/
         'res_prices' => '5=Day=30=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=5=Day=-1;3=Day=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s8.';2=Day=15=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=7=Day=-1='.$s9.';1=Day=20=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s10.';3=Day=25=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=0=Minute=-1='.$s11,
+        'payperrentals_quantity' => 3,
+        'global_min_period' => 'Yes',
+        'global_max_period' => 'Yes',
+        'global_turnover_after' => 'Yes',
+        'global_turnover_before' => 'Yes',
+        'disabled_with_message' => 'Disabled',
+        'global_excludedays' => 'Yes',
+        'allow_overbooking' => 'Disabled',
+        'use_global_dates' => 'Yes',
+        'use_global_padding_days' => 'Yes',
+        /*End Reservation Variables*/
+    ),
+    array(
+        'sku' => 'product10',
+        '_type' => 'reservation',
+        '_attribute_set' => 'Default',
+        '_product_websites' => 'base',
+        'name' => 'Product 10',
+        'description' => 'Default',
+        'short_description' => 'Default',
+        'manage_stock' => 0,
+        'use_config_manage_stock' => 0,
+        'is_in_stock' => 1,
+        'status' => 1,
+        'weight' => 1,
+        'visibility' => 4,
+        'tax_class_id' => 2,
+        'is_reservation' => 'Reservation',
+        /*Reservation variable*/
+        'res_prices' => '1=Hour=10=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=5=Hour=-1;1=Hour=100=0=0=0000-00-00 00:00:00=0000-00-00 00:00:00=50=Hour=-1='.$s12,
         'payperrentals_quantity' => 3,
         'global_min_period' => 'Yes',
         'global_max_period' => 'Yes',
