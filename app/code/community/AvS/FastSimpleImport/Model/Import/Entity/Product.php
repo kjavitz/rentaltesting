@@ -1,4 +1,17 @@
 <?php
+/**
+ * Abstract class for Product Entity Adapter whcih is used for switching between CE and EE
+ *
+ * @category   AvS
+ * @package    AvS_FastSimpleImport
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software Licence 3.0 (OSL-3.0)
+ * @author     Andreas von Studnitz <avs@avs-webentwicklung.de>
+ */
+if (@class_exists('Enterprise_ImportExport_Model_Import_Entity_Product')) {
+    abstract class AvS_FastSimpleImport_Model_Import_Entity_Product_Abstract extends Enterprise_ImportExport_Model_Import_Entity_Product {}
+} else {
+    abstract class AvS_FastSimpleImport_Model_Import_Entity_Product_Abstract extends Mage_ImportExport_Model_Import_Entity_Product {}
+}
 
 /**
  * Entity Adapter for importing Magento Products
@@ -8,7 +21,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software Licence 3.0 (OSL-3.0)
  * @author     Andreas von Studnitz <avs@avs-webentwicklung.de>
  */
-class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport_Model_Import_Entity_Product
+class AvS_FastSimpleImport_Model_Import_Entity_Product extends AvS_FastSimpleImport_Model_Import_Entity_Product_Abstract
 {
     /**
      * Code of a primary attribute which identifies the entity group if import contains of multiple rows
@@ -43,6 +56,21 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
 
     /** @var null|bool */
     protected $_symbolEmptyFields = false;
+
+    /**
+     * Attributes with index (not label) value.
+     *
+     * @var array
+     */
+    protected $_indexValueAttributes = array(
+        'status',
+        'tax_class_id',
+        'visibility',
+        'enable_googlecheckout',
+        'gift_message_available',
+        'custom_design',
+        'country_of_manufacture'
+    );
 
     /**
      * Set the error limit when the importer will stop
@@ -235,7 +263,7 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
     protected function _getAttributeOptions($attribute)
     {
         if (!isset($this->_attributeOptions[$attribute->getAttributeCode()])) {
-            if ($attribute->getFrontendInput() == 'select') {
+            if (in_array($attribute->getFrontendInput(), array('select', 'multiselect'))) {
                 /** @var $attributeOptions Mage_Eav_Model_Entity_Attribute_Source_Table */
                 $attributeOptions = Mage::getModel('eav/entity_attribute_source_table');
                 $attributeOptions->setAttribute($attribute);
@@ -522,10 +550,10 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
                 $urlModel->refreshProductRewrite($productId);
             }
         }
-
-        Mage::dispatchEvent('fastsimpleimport_reindex_products_before_flat', array('entity_id' => &$entityIds));
-        Mage::getSingleton('catalog/product_flat_indexer')->saveProduct($entityIds);
-
+        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+            Mage::dispatchEvent('fastsimpleimport_reindex_products_before_flat', array('entity_id' => &$entityIds));
+            Mage::getSingleton('catalog/product_flat_indexer')->saveProduct($entityIds);
+        }
         Mage::dispatchEvent('fastsimpleimport_reindex_products_after', array('entity_id' => &$entityIds));
 
         return $this;
@@ -617,7 +645,8 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
             /** @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attributeCode);
             if (!is_object($attribute)) {
-                Mage::throwException('Attribute ' . $attributeCode . ' not found.');
+                continue;
+//                Mage::throwException('Attribute ' . $attributeCode . ' not found.');
             }
             if ($attribute->getSourceModel() != 'eav/entity_attribute_source_table') {
                 Mage::throwException('Attribute ' . $attributeCode . ' is no dropdown attribute.');
@@ -644,7 +673,8 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
             /** @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute = Mage::getSingleton('catalog/product')->getResource()->getAttribute($attributeCode);
             if (!is_object($attribute)) {
-                Mage::throwException('Attribute ' . $attributeCode . ' not found.');
+                continue;
+//                Mage::throwException('Attribute ' . $attributeCode . ' not found.');
             }
             if ($attribute->getBackendModel() != 'eav/entity_attribute_backend_array') {
                 Mage::throwException('Attribute ' . $attributeCode . ' is no multiselect attribute.');
@@ -800,6 +830,10 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
      */
     protected function _prepareAttributesOld($rowData, $rowScope, $attributes, $rowSku, $rowStore)
     {
+        if (method_exists($this, '_prepareUrlKey')) {
+            $rowData = $this->_prepareUrlKey($rowData, $rowScope, $rowSku);
+        }
+
         $product = Mage::getModel('importexport/import_proxy_product', $rowData);
 
         foreach ($rowData as $attrCode => $attrValue) {
@@ -1249,7 +1283,9 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
     protected function _prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore)
     {
         $product = Mage::getModel('importexport/import_proxy_product', $rowData);
-
+ 	if (method_exists($this, '_prepareUrlKey')) {
+            $rowData = $this->_prepareUrlKey($rowData, $rowScope, $rowSku);
+        }
         $res_params = array();
         foreach ($rowData as $attrCode => $attrValue) {
             $attribute = $this->_getAttribute($attrCode);
@@ -1829,6 +1865,27 @@ class AvS_FastSimpleImport_Model_Import_Entity_Product extends Mage_ImportExport
             }
         }
         return $this;
+    }
+
+
+    /**
+     * Common validation
+     *
+     * @param array $rowData
+     * @param int $rowNum
+     * @param string|false|null $sku
+     */
+    protected function _validate($rowData, $rowNum, $sku)
+    {
+        $this->_isProductWebsiteValid($rowData, $rowNum);
+        $this->_isProductCategoryValid($rowData, $rowNum);
+        $this->_isTierPriceValid($rowData, $rowNum);
+        $this->_isGroupPriceValid($rowData, $rowNum);
+        $this->_isSuperProductsSkuValid($rowData, $rowNum);
+
+        if (method_exists($this, '_isUrlKeyValid')) {
+            $this->_isUrlKeyValid($rowData, $rowNum, $sku);
+        }
     }
 
     /**

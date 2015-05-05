@@ -8,19 +8,17 @@ if(strpos($workingDir,'.modman') > 0) {
 }
 Mage::init('admin');
 
-
 /**
- * Insert special price
+ * Delete all products
  */
-
-    $respricedate = Mage::getModel('payperrentals/reservationpricesdates');
-    $data['description'] = 's4';
-    $data['disabled_type'] = 'Monthly';
-    $data['date_from'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/25/2015 00:00:00');
-    $data['date_to'] = ITwebexperts_Payperrentals_Helper_Date::toMysqlDate('01/26/2015 00:00:00');
-    $respricedate->setData($data);
-    $respricedate->save();
-
+$products = Mage::getModel('catalog/product')->getCollection();
+foreach ($products as $product) {
+    try {
+        $product->delete();
+    } catch(Exception $e) {
+        echo "Product #".$product->getId()." could not be remvoved: ".$e->getMessage();
+    }
+}
 
 /**
  * Add color attribute to attribute set default
