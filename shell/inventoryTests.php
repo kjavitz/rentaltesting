@@ -154,6 +154,9 @@ $data = array(
         'allow_overbooking' => 'Disabled',
         'use_global_dates' => 'Yes',
         'use_global_padding_days' => 'Yes',
+        'payperrentals_enable_buyout' => 'Yes',
+        'payperrentals_buyout_onproduct' => 'Yes',
+        'payperrentals_buyoutprice' => 200,
         /*End Reservation Variables*/
     ),
     array(
